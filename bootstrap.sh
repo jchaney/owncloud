@@ -9,7 +9,7 @@ else
     sed -i "s#-x-replace-key-x-#$SSL_KEY#" /root/nginx_ssl.conf
     cp /root/nginx_ssl.conf /etc/nginx/nginx.conf
 fi
-chown -R www-data:www-data /var/www/owncloud/data
+chown -R www-data:www-data /var/www/owncloud /owncloud
 echo "Starting server..\n"
 /etc/init.d/php5-fpm start
 /etc/init.d/nginx start
