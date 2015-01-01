@@ -2,6 +2,7 @@
 
 touch /var/log/nginx/access.log
 touch /var/log/nginx/error.log
+touch /var/log/cron/owncloud.log
 
 if [ -z "$SSL_CERT" ]; then
     echo "\nCopying nginx.conf without SSL support..\n"
@@ -15,7 +16,8 @@ fi
 chown -R www-data:www-data /var/www/owncloud /owncloud
 echo "Starting server..\n"
 
-tail -F /var/log/nginx/*.log &
+tail -F /var/log/nginx/*.log /var/log/cron/owncloud.log &
 
+/usr/sbin/cron -f &
 /etc/init.d/php5-fpm start
 /etc/init.d/nginx start
