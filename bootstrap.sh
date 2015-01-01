@@ -1,5 +1,8 @@
 #!/bin/sh
 
+touch /var/log/nginx/access.log
+touch /var/log/nginx/error.log
+
 if [ -z "$SSL_CERT" ]; then
     echo "\nCopying nginx.conf without SSL support..\n"
     cp /root/nginx.conf /etc/nginx/nginx.conf
@@ -11,5 +14,8 @@ else
 fi
 chown -R www-data:www-data /var/www/owncloud /owncloud
 echo "Starting server..\n"
+
+tail -F /var/log/nginx/*.log &
+
 /etc/init.d/php5-fpm start
 /etc/init.d/nginx start
