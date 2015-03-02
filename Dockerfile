@@ -11,7 +11,7 @@ RUN         dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true
 RUN         apt-get update && \
             apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget
 
-ADD         https://download.owncloud.org/community/owncloud-7.0.4.tar.bz2 /tmp/oc.tar.bz2
+ADD         https://download.owncloud.org/community/owncloud-8.0.0.tar.bz2 /tmp/oc.tar.bz2
 RUN         mkdir -p /var/www/owncloud /owncloud /var/log/cron && \
             tar -C /var/www/ -xvf /tmp/oc.tar.bz2 && \
             chown -R www-data:www-data /var/www/owncloud && \
