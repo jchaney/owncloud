@@ -8,6 +8,10 @@ ADD         nginx.conf /root/
 ENV         DEBIAN_FRONTEND noninteractive
 RUN         dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
 
+RUN         export LANG=C.UTF-8 ;\
+            apt-get install -y software-properties-common ;\
+            add-apt-repository -y ppa:ondrej/php5-5.6
+
 RUN         apt-get update && \
             apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget
 
