@@ -5,14 +5,14 @@ ADD misc/bootstrap.sh /usr/bin/
 ADD configs/nginx_ssl.conf /root/
 ADD configs/nginx.conf /root/
 
-ENV DEBIAN_FRONTEND noninteractive
 RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
 
-RUN export LANG=C.UTF-8 ;\
+RUN export LANG=C.UTF-8 DEBIAN_FRONTEND=noninteractive;\
     apt-get install -y software-properties-common ;\
     add-apt-repository -y ppa:ondrej/php5-5.6
 
-RUN apt-get update && \
+RUN DEBIAN_FRONTEND=noninteractive ;\
+    apt-get update && \
     apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget
 
 ADD https://download.owncloud.org/community/owncloud-8.0.3.tar.bz2 /tmp/oc.tar.bz2
