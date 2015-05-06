@@ -1,9 +1,9 @@
 FROM		    ubuntu:14.04
 MAINTAINER	Josh Chaney "josh@chaney.io"
 
-ADD         bootstrap.sh /usr/bin/
-ADD         nginx_ssl.conf /root/
-ADD         nginx.conf /root/
+ADD         misc/bootstrap.sh /usr/bin/
+ADD         configs/nginx_ssl.conf /root/
+ADD         configs/nginx.conf /root/
 
 ENV         DEBIAN_FRONTEND noninteractive
 RUN         dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
@@ -23,11 +23,11 @@ RUN         mkdir -p /var/www/owncloud /owncloud /var/log/cron && \
             chmod +x /usr/bin/bootstrap.sh && \
             rm /tmp/oc.tar.bz2
 
-ADD         php.ini /etc/php5/fpm/
-ADD         cron.conf /etc/oc-cron.conf
+ADD         configs/php.ini /etc/php5/fpm/
+ADD         configs/cron.conf /etc/oc-cron.conf
 RUN         crontab /etc/oc-cron.conf
 
-ADD         extensions.sh extensions.conf /var/www/owncloud/apps/
+ADD         misc/extensions.sh configs/extensions.conf /var/www/owncloud/apps/
 RUN         chmod a+x /var/www/owncloud/apps/extensions.sh ; \
             /var/www/owncloud/apps/extensions.sh /var/www/owncloud/apps/extensions.conf /var/www/owncloud/apps ; \
             rm /var/www/owncloud/apps/extensions.sh /var/www/owncloud/apps/extensions.conf
