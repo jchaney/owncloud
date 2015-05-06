@@ -17,7 +17,7 @@ RUN         apt-get update && \
 
 ADD         https://download.owncloud.org/community/owncloud-8.0.3.tar.bz2 /tmp/oc.tar.bz2
 RUN         mkdir -p /var/www/owncloud /owncloud /var/log/cron && \
-            tar -C /var/www/ -xvf /tmp/oc.tar.bz2 && \
+            tar -C /var/www/ -xf /tmp/oc.tar.bz2 && \
             chown -R www-data:www-data /var/www/owncloud && \
             rm -rf /var/www/owncloud/config && ln -sf /owncloud /var/www/owncloud/config && \
             chmod +x /usr/bin/bootstrap.sh && \
