@@ -32,6 +32,7 @@ RUN chmod a+x /var/www/owncloud/apps/extensions.sh ; \
     /var/www/owncloud/apps/extensions.sh /var/www/owncloud/apps/extensions.conf /var/www/owncloud/apps ; \
     rm /var/www/owncloud/apps/extensions.sh /var/www/owncloud/apps/extensions.conf
 
+ENV OWNCLOUD_IN_ROOTPATH 0
 EXPOSE 80
 EXPOSE 443
 

@@ -13,6 +13,13 @@ else
     sed -i "s#-x-replace-key-x-#$SSL_KEY#" /root/nginx_ssl.conf
     cp /root/nginx_ssl.conf /etc/nginx/nginx.conf
 fi
+
+if [ "${OWNCLOUD_IN_ROOTPATH}" = "1" ]; then
+    sed -i "s#-x-replace-oc-rootpath-#/var/www/owncloud/#" /etc/nginx/nginx.conf
+else
+    sed -i "s#-x-replace-oc-rootpath-#/var/www/#" /etc/nginx/nginx.conf
+fi
+
 chown -R www-data:www-data /var/www/owncloud /owncloud
 echo "Starting server..\n"
 
