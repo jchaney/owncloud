@@ -15,13 +15,17 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
     apt-get update && \
     apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget
 
+ADD misc/owncloud.asc /tmp/owncloud.asc
 ADD https://download.owncloud.org/community/owncloud-8.0.3.tar.bz2 /tmp/oc.tar.bz2
+ADD https://download.owncloud.org/community/owncloud-8.0.3.tar.bz2.asc /tmp/oc.tar.bz2.asc
 RUN mkdir -p /var/www/owncloud /owncloud /var/log/cron && \
+    gpg --import /tmp/owncloud.asc && \
+    gpg --verify /tmp/oc.tar.bz2.asc && \
     tar -C /var/www/ -xf /tmp/oc.tar.bz2 && \
     chown -R www-data:www-data /var/www/owncloud && \
     rm -rf /var/www/owncloud/config && ln -sf /owncloud /var/www/owncloud/config && \
     chmod +x /usr/bin/bootstrap.sh && \
-    rm /tmp/oc.tar.bz2
+    rm /tmp/oc.tar.bz2 /tmp/oc.tar.bz2.asc /tmp/owncloud.asc
 
 ADD configs/php.ini /etc/php5/fpm/
 ADD configs/cron.conf /etc/oc-cron.conf

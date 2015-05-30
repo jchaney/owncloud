@@ -20,3 +20,12 @@ owncloud:
 
 build:
 	docker build $(BUILD_OPTIONS) --tag $(image_owncloud) ..
+
+.PHONY: verify-gpg-public-keys
+verify-gpg-public-keys: owncloud.asc
+
+## Always renew
+.PHONY: owncloud.asc
+owncloud.asc:
+	wget --output-document "$@" "https://owncloud.org/$@"
+	git diff --exit-code -- owncloud.asc && echo 'OK' || echo 'Not OK'
