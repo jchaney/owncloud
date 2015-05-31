@@ -24,6 +24,7 @@ RUN mkdir -p /var/www/owncloud /owncloud /var/log/cron && \
     rm /tmp/oc.tar.bz2
 
 ADD configs/php.ini /etc/php5/fpm/
+RUN echo 'always_populate_raw_post_data = -1' >> /etc/php5/cli/php.ini
 ADD configs/cron.conf /etc/oc-cron.conf
 RUN crontab /etc/oc-cron.conf
 
