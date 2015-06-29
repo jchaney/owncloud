@@ -9,7 +9,7 @@ RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/i
 
 RUN DEBIAN_FRONTEND=noninteractive ;\
     apt-get update && \
-    apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget bzip2 cron
+    apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget bzip2 cron sudo
 
 ADD misc/owncloud.asc /tmp/owncloud.asc
 ADD https://download.owncloud.org/community/owncloud-8.0.4.tar.bz2 /tmp/oc.tar.bz2
