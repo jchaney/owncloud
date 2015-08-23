@@ -8,6 +8,7 @@ This image is also on [Docker Hub][].
 
 * It is directly based on Debian stable. No additional image layers which blow up the total image size and might by a security risk.
 * Uses [nginx][] as webserver.
+* [Hardened TLS](https://github.com/BetterCrypto/Applied-Crypto-Hardening/blob/master/src/configuration/Webservers/nginx/default-hsts) configuration.
 * Local caching enabled by default (APCu).
   See https://owncloud.org/blog/making-owncloud-faster-through-caching/
 * Installs the ownCloud tarball directly from https://owncloud.org/ and it [securely](https://github.com/jchaney/owncloud/pull/12) verifies the GPG signature.

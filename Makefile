@@ -69,3 +69,4 @@ owncloud-dev:
 		$(image_owncloud)
 
 		# --volume $(docker_owncloud_permanent_storage)-dev/config:/owncloud \
+		# --volume $(PWD)/configs/nginx_ssl.conf:/root/nginx_ssl.conf \
