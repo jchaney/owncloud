@@ -12,7 +12,7 @@ RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/i
 
 RUN DEBIAN_FRONTEND=noninteractive ;\
     apt-get update && \
-    apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm smbclient nginx wget bzip2 cron sudo
+    apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm php-apc smbclient nginx wget bzip2 cron sudo
 
 ADD misc/owncloud.asc /tmp/owncloud.asc
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
@@ -26,7 +26,15 @@ RUN mkdir -p /var/www/owncloud /owncloud /var/log/cron && \
     chmod +x /usr/bin/bootstrap.sh && \
     rm /tmp/oc.tar.bz2 /tmp/oc.tar.bz2.asc /tmp/owncloud.asc
 
+ADD configs/owncloud_config.php /owncloud/config.php
+
+## Fixes: PHP is configured to populate raw post data. Since PHP 5.6 this will lead to PHP throwing notices for perfectly valid code. #19
 RUN echo 'always_populate_raw_post_data = -1' | tee --append /etc/php5/cli/php.ini /etc/php5/fpm/php.ini
+
+## Allow usage of `sudo -u www-data php /var/www/owncloud/occ` with APC.
+## FIXME: Temporally: https://github.com/owncloud/core/issues/17329
+RUN echo 'apc.enable_cli = 1' >> /etc/php5/cli/php.ini
+
 ADD configs/cron.conf /etc/oc-cron.conf
 RUN crontab /etc/oc-cron.conf
 
