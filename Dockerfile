@@ -10,6 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
 ## Check latest version: https://owncloud.org/install/#instructions-server
 ENV OWNCLOUD_VERSION 8.1.1
 ENV OWNCLOUD_IN_ROOTPATH 0
+ENV OWNCLOUD_SERVERNAME localhost
 
 ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
 ADD configs/3party_apps.conf /owncloud/
@@ -24,7 +25,7 @@ ADD configs/nginx_ssl.conf configs/nginx.conf /root/
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2.asc /tmp/oc.tar.bz2.asc
 ADD misc/owncloud.asc /tmp/owncloud.asc
-RUN mkdir --parent /var/www/owncloud /owncloud /var/log/cron && \
+RUN mkdir --parent /var/www/owncloud/apps_persistent /owncloud /var/log/cron && \
     gpg --import /tmp/owncloud.asc && \
     gpg --verify /tmp/oc.tar.bz2.asc && \
     tar -C /var/www/ -xf /tmp/oc.tar.bz2 && \
