@@ -19,12 +19,12 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
 ADD misc/owncloud.asc /tmp/owncloud.asc
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2.asc /tmp/oc.tar.bz2.asc
-RUN mkdir -p /var/www/owncloud /owncloud /var/log/cron && \
+RUN mkdir --parent /var/www/owncloud /owncloud /var/log/cron && \
     gpg --import /tmp/owncloud.asc && \
     gpg --verify /tmp/oc.tar.bz2.asc && \
     tar -C /var/www/ -xf /tmp/oc.tar.bz2 && \
     chown -R www-data:www-data /var/www/owncloud && \
-    rm -rf /var/www/owncloud/config && ln -sf /owncloud /var/www/owncloud/config && \
+    ln --symbolic --force /owncloud/config.php /var/www/owncloud/config/config.php && \
     chmod +x /usr/bin/bootstrap.sh && \
     rm /tmp/oc.tar.bz2 /tmp/oc.tar.bz2.asc /tmp/owncloud.asc
 
@@ -36,6 +36,9 @@ RUN echo 'always_populate_raw_post_data = -1' | tee --append /etc/php5/cli/php.i
 ## Allow usage of `sudo -u www-data php /var/www/owncloud/occ` with APC.
 ## FIXME: Temporally: https://github.com/owncloud/core/issues/17329
 RUN echo 'apc.enable_cli = 1' >> /etc/php5/cli/php.ini
+
+## Fixed warning in admin panel getenv('PATH') == '' for ownCloud 8.1.
+RUN echo 'env[PATH] = /usr/local/bin:/usr/bin:/bin' >> /etc/php5/fpm/pool.d/www.conf
 
 ADD configs/cron.conf /etc/oc-cron.conf
 RUN crontab /etc/oc-cron.conf
