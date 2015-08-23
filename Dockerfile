@@ -3,18 +3,19 @@ MAINTAINER  Robin Schneider <ypid@riseup.net>
 # MAINTAINER silvio <silvio@port1024.net>
 # MAINTAINER Josh Chaney <josh@chaney.io>
 
-ADD misc/bootstrap.sh /usr/bin/
-ADD configs/nginx_ssl.conf /root/
-ADD configs/nginx.conf /root/
-
-## Check latest version: https://owncloud.org/install/#instructions-server
-ENV OWNCLOUD_VERSION 8.1.1
-
-RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
-
 RUN DEBIAN_FRONTEND=noninteractive ;\
     apt-get update && \
     apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm php-apc smbclient nginx wget bzip2 cron sudo
+
+## Check latest version: https://owncloud.org/install/#instructions-server
+ENV OWNCLOUD_VERSION 8.1.1
+ENV OWNCLOUD_IN_ROOTPATH 0
+
+ADD misc/bootstrap.sh misc/occ /usr/local/bin/
+ADD configs/nginx_ssl.conf configs/nginx.conf /root/
+
+## Could be used: https://github.com/docker-library/owncloud/blob/master/8.1/Dockerfile
+## RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26
 
 ADD misc/owncloud.asc /tmp/owncloud.asc
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
@@ -25,7 +26,6 @@ RUN mkdir --parent /var/www/owncloud /owncloud /var/log/cron && \
     tar -C /var/www/ -xf /tmp/oc.tar.bz2 && \
     chown -R www-data:www-data /var/www/owncloud && \
     ln --symbolic --force /owncloud/config.php /var/www/owncloud/config/config.php && \
-    chmod +x /usr/bin/bootstrap.sh && \
     rm /tmp/oc.tar.bz2 /tmp/oc.tar.bz2.asc /tmp/owncloud.asc
 
 ADD configs/owncloud_config.php /owncloud/config.php
@@ -48,7 +48,6 @@ RUN chmod a+x /var/www/owncloud/apps/extensions.sh ; \
     /var/www/owncloud/apps/extensions.sh /var/www/owncloud/apps/extensions.conf /var/www/owncloud/apps ; \
     rm /var/www/owncloud/apps/extensions.sh /var/www/owncloud/apps/extensions.conf
 
-ENV OWNCLOUD_IN_ROOTPATH 0
 EXPOSE 80
 EXPOSE 443
 

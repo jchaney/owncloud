@@ -1,6 +1,8 @@
 <?php
 // Default options.
 $CONFIG = array (
-    'memcache.local' => '\OC\Memcache\APCu',
+    'installed' => false,
+
     // Memory caching backend configuration: APC user backend
+    'memcache.local' => '\OC\Memcache\APCu',
 );
