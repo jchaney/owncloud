@@ -11,15 +11,19 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
 ENV OWNCLOUD_VERSION 8.1.1
 ENV OWNCLOUD_IN_ROOTPATH 0
 
-ADD misc/bootstrap.sh misc/occ /usr/local/bin/
+ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
+ADD configs/3party_apps.conf /owncloud/
 ADD configs/nginx_ssl.conf configs/nginx.conf /root/
 
 ## Could be used: https://github.com/docker-library/owncloud/blob/master/8.1/Dockerfile
 ## RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26
 
-ADD misc/owncloud.asc /tmp/owncloud.asc
+## For testing:
+# ADD owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
+
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2.asc /tmp/oc.tar.bz2.asc
+ADD misc/owncloud.asc /tmp/owncloud.asc
 RUN mkdir --parent /var/www/owncloud /owncloud /var/log/cron && \
     gpg --import /tmp/owncloud.asc && \
     gpg --verify /tmp/oc.tar.bz2.asc && \
@@ -42,11 +46,6 @@ RUN echo 'env[PATH] = /usr/local/bin:/usr/bin:/bin' >> /etc/php5/fpm/pool.d/www.
 
 ADD configs/cron.conf /etc/oc-cron.conf
 RUN crontab /etc/oc-cron.conf
-
-ADD misc/extensions.sh configs/extensions.conf /var/www/owncloud/apps/
-RUN chmod a+x /var/www/owncloud/apps/extensions.sh ; \
-    /var/www/owncloud/apps/extensions.sh /var/www/owncloud/apps/extensions.conf /var/www/owncloud/apps ; \
-    rm /var/www/owncloud/apps/extensions.sh /var/www/owncloud/apps/extensions.conf
 
 EXPOSE 80
 EXPOSE 443
