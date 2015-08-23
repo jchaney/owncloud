@@ -5,7 +5,8 @@ ADD misc/bootstrap.sh /usr/bin/
 ADD configs/nginx_ssl.conf /root/
 ADD configs/nginx.conf /root/
 
-ENV OWNCLOUD_VERSION 8.1.0
+## Check latest version: https://owncloud.org/install/#instructions-server
+ENV OWNCLOUD_VERSION 8.1.1
 
 RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
 
