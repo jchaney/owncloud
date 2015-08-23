@@ -1,5 +1,7 @@
 FROM debian:jessie
-MAINTAINER Josh Chaney "josh@chaney.io"
+MAINTAINER  Robin Schneider <ypid@riseup.net>
+# MAINTAINER silvio <silvio@port1024.net>
+# MAINTAINER Josh Chaney <josh@chaney.io>
 
 ADD misc/bootstrap.sh /usr/bin/
 ADD configs/nginx_ssl.conf /root/

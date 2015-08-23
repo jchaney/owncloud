@@ -13,3 +13,16 @@ You have two options to get the image:
 
 [ownCloud]: https://owncloud.org/
 [Docker Hub]: https://registry.hub.docker.com/u/jchaney/owncloud/
+
+## Maintainer
+
+The current maintainer is [Robin `ypid` Schneider][ypid].
+
+List of previous maintainers:
+
+1. [Josh Chaney][jchaney]
+2. [silvio][]
+
+[ypid]: https://github.com/ypid
+[silvio]: https://github.com/silvio
+[jchaney]: https://github.com/jchaney
