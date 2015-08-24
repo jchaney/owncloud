@@ -5,7 +5,27 @@ MAINTAINER  Robin Schneider <ypid@riseup.net>
 
 RUN DEBIAN_FRONTEND=noninteractive ;\
     apt-get update && \
-    apt-get install -y php5-cli php5-gd php5-pgsql php5-sqlite php5-mysqlnd php5-curl php5-intl php5-mcrypt php5-ldap php5-gmp php5-apcu php5-imagick php5-fpm php-apc smbclient nginx wget bzip2 cron sudo
+    apt-get install --assume-yes \
+        bzip2 \
+        cron \
+        nginx \
+        php-apc \
+        php5-apcu \
+        php5-cli \
+        php5-curl \
+        php5-fpm \
+        php5-gd \
+        php5-gmp \
+        php5-imagick \
+        php5-intl \
+        php5-ldap \
+        php5-mcrypt \
+        php5-mysqlnd \
+        php5-pgsql \
+        php5-sqlite \
+        smbclient \
+        sudo \
+        wget
 
 ## Check latest version: https://owncloud.org/install/#instructions-server
 ENV OWNCLOUD_VERSION 8.1.1
