@@ -23,7 +23,7 @@ You have two options to get the image:
 
 ## ownCloud up and running
 
-Checkout the [Makefile][] for an example or just run `make owncloud` which will setup a ownCloud container instance (called "owncloud) and publish it locally. After that, just head over to http://localhost/ and give it a try. You can now create an admin account. For testing purposes you can use SQLite (but remember to use a real database in production).
+Checkout the [Makefile][] for an example or just run `make owncloud` which will setup a ownCloud container instance (called "owncloud"). After that, just head over to [http://localhost/](http://localhost/) and give it a try. You can now create an admin account. For testing purposes you can use SQLite (but remember to use a real database in production).
 
 ## Running ownCloud in production
 
@@ -53,6 +53,7 @@ oc-install-3party-apps /owncloud/path/to/your/config /var/www/owncloud/apps_pers
 ```
 
 in your container.
+Checkout the [example configuration](/configs/3party_apps.conf) and the [script](/misc/oc-install-3party-apps) which does the work for details.
 
 ## Maintainer
 
