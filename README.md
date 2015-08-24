@@ -27,14 +27,29 @@ Checkout the [Makefile][] for an example or just run `make owncloud` which will 
 
 ## Running ownCloud in production
 
-Setup a separat container running your database server and link it to this ownCloud container. Checkout the [Makefile][] for an example.
+Setup a separat container running your database server and link it to the ownCloud container.
+To setup ownCloud with [MariaDB] as backend, just run:
+
+```Shell
+make owncloud-production
+```
+
+In the initial ownCloud setup, you need to supply the database password which you can look up via (`MYSQL_PASSWORD`):
+
+```Shell
+docker exec owncloud-mariadb env
+```
+
+The hostname of your database is "db".
+
+That should be it :smile:
 
 ## Installing 3party apps
 
 Just write the command(s) needed to install apps in configuration file, mount it in the container and run
 
 ```Shell
-oc-install-3party-apps /path/to/your/config /var/www/owncloud/apps_persistent
+oc-install-3party-apps /owncloud/path/to/your/config /var/www/owncloud/apps_persistent
 ```
 
 in your container.
@@ -54,5 +69,6 @@ List of previous maintainers:
 
 [Makefile]: /Makefile
 [ownCloud]: https://owncloud.org/
+[MariaDB]: https://mariadb.org/
 [Docker Hub]: https://registry.hub.docker.com/u/jchaney/owncloud/
 [nginx]: http://nginx.org/
