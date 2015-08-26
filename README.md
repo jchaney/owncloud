@@ -73,3 +73,7 @@ List of previous maintainers:
 [MariaDB]: https://mariadb.org/
 [Docker Hub]: https://registry.hub.docker.com/u/jchaney/owncloud/
 [nginx]: http://nginx.org/
+
+## License
+
+This project is distributed under [GNU Affero General Public License, Version 3](/LICENSE).
