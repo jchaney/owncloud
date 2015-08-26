@@ -53,7 +53,7 @@ oc-install-3party-apps /owncloud/path/to/your/config /var/www/owncloud/apps_pers
 ```
 
 in your container.
-Checkout the [example configuration](/configs/3party_apps.conf) and the [script](/misc/oc-install-3party-apps) which does the work for details.
+Checkout the [example configuration][3party_apps.conf] and the [script][oc-install-3party-apps] which does the work for details.
 
 ## Maintainer
 
@@ -63,6 +63,10 @@ List of previous maintainers:
 
 1. [Josh Chaney][jchaney]
 2. [silvio][]
+
+## License
+
+This project is distributed under [GNU Affero General Public License, Version 3][AGPLv3].
 
 [ypid]: https://github.com/ypid
 [silvio]: https://github.com/silvio
@@ -74,6 +78,6 @@ List of previous maintainers:
 [Docker Hub]: https://registry.hub.docker.com/u/jchaney/owncloud/
 [nginx]: http://nginx.org/
 
-## License
-
-This project is distributed under [GNU Affero General Public License, Version 3](/LICENSE).
+[3party_apps.conf]: https://github.com/jchaney/owncloud/blob/master/configs/3party_apps.conf
+[oc-install-3party-apps]: https://github.com/jchaney/owncloud/blob/master/misc/oc-install-3party-apps
+[AGPLv3]: https://github.com/jchaney/owncloud/blob/master/LICENSE
