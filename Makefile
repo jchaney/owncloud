@@ -10,8 +10,6 @@ docker_owncloud_ssl_cert ?= /etc/ssl/certs/ssl-cert-snakeoil.pem
 docker_owncloud_ssl_key  ?= /etc/ssl/private/ssl-cert-snakeoil.key
 docker_owncloud_servername ?= localhost
 
-docker_owncloud_mariadb_root_password ?= $(shell pwgen --secure 40 1)
-docker_owncloud_mariadb_user_password ?= $(shell pwgen --secure 40 1)
 docker_owncloud_mariadb_user ?= owncloud-production
 
 image_owncloud ?= jchaney/owncloud
@@ -88,10 +86,10 @@ owncloud-mariadb:
 		--name "$@" \
 		$(DOCKER_RUN_OPTIONS) \
 		--volume $(docker_owncloud_permanent_storage)/db:/var/lib/mysql \
-		--env "MYSQL_ROOT_PASSWORD=$(docker_owncloud_mariadb_root_password)" \
+		--env "MYSQL_ROOT_PASSWORD=$(shell pwgen --secure 40 1)" \
 		--env "MYSQL_USER=$(docker_owncloud_mariadb_user)" \
 		--env "MYSQL_DATABASE=$(docker_owncloud_mariadb_user)" \
-		--env "MYSQL_PASSWORD=$(docker_owncloud_mariadb_root_password)" \
+		--env "MYSQL_PASSWORD=$(shell pwgen --secure 40 1)" \
 		$(image_mariadb)
 
 owncloud-dev:
