@@ -4,6 +4,21 @@ Docker image for [ownCloud][] with security in mind.
 
 This image is also on [Docker Hub][].
 
+<!-- hub.docker.com can not handle Markdown references which are defined laaaaaater … ? -->
+[ypid]: https://github.com/ypid
+[silvio]: https://github.com/silvio
+[jchaney]: https://github.com/jchaney
+
+[Makefile]: /Makefile
+[ownCloud]: https://owncloud.org/
+[MariaDB]: https://mariadb.org/
+[Docker Hub]: https://registry.hub.docker.com/u/jchaney/owncloud/
+[nginx]: http://nginx.org/
+
+[3party_apps.conf]: https://github.com/jchaney/owncloud/blob/master/configs/3party_apps.conf
+[oc-install-3party-apps]: https://github.com/jchaney/owncloud/blob/master/misc/oc-install-3party-apps
+[AGPLv3]: https://github.com/jchaney/owncloud/blob/master/LICENSE
+
 ## Why using this image
 
 * It is directly based on Debian stable. No additional image layers which blow up the total image size and might by a security risk.
@@ -67,17 +82,3 @@ List of previous maintainers:
 ## License
 
 This project is distributed under [GNU Affero General Public License, Version 3][AGPLv3].
-
-[ypid]: https://github.com/ypid
-[silvio]: https://github.com/silvio
-[jchaney]: https://github.com/jchaney
-
-[Makefile]: /Makefile
-[ownCloud]: https://owncloud.org/
-[MariaDB]: https://mariadb.org/
-[Docker Hub]: https://registry.hub.docker.com/u/jchaney/owncloud/
-[nginx]: http://nginx.org/
-
-[3party_apps.conf]: https://github.com/jchaney/owncloud/blob/master/configs/3party_apps.conf
-[oc-install-3party-apps]: https://github.com/jchaney/owncloud/blob/master/misc/oc-install-3party-apps
-[AGPLv3]: https://github.com/jchaney/owncloud/blob/master/LICENSE
