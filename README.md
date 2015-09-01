@@ -72,6 +72,16 @@ oc-install-3party-apps /owncloud/path/to/your/config /var/www/owncloud/apps_pers
 in your container.
 Checkout the [example configuration][3party_apps.conf] and the [script][oc-install-3party-apps] which does the work for details.
 
+## Related projects
+
+* [official docker repository for ownCloud](https://hub.docker.com/_/owncloud/)
+
+  Uses Apache as webserver and is based on the [official Docker PHP image](https://hub.docker.com/_/php/).
+
+* [l3iggs/owncloud](https://hub.docker.com/r/l3iggs/owncloud/)
+
+  Uses Apache as webserver and is based on a self build LAMP stack based on Arch Linux.
+
 ## Maintainer
 
 The current maintainer is [Robin `ypid` Schneider][ypid].
