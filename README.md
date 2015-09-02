@@ -5,22 +5,6 @@ Docker image for [ownCloud][] with security in mind.
 The build instructions are tracked on [GitHub][this.project_github_url].
 Automated builds are hosted on [Docker Hub][this.project_docker_hub_url].
 
-<!-- hub.docker.com can not handle Markdown references which are defined laaaaaater … ? -->
-[ypid]: https://github.com/ypid
-[silvio]: https://github.com/silvio
-[jchaney]: https://github.com/jchaney
-
-[Makefile]: /Makefile
-[ownCloud]: https://owncloud.org/
-[MariaDB]: https://mariadb.org/
-[nginx]: http://nginx.org/
-
-[3party_apps.conf]: https://github.com/jchaney/owncloud/blob/master/configs/3party_apps.conf
-[oc-install-3party-apps]: https://github.com/jchaney/owncloud/blob/master/misc/oc-install-3party-apps
-[AGPLv3]: https://github.com/jchaney/owncloud/blob/master/LICENSE
-[this.project_docker_hub_url]: https://registry.hub.docker.com/u/jchaney/owncloud/
-[this.project_github_url]: https://github.com/jchaney/owncloud
-
 ## Why using this image
 
 * It is directly based on Debian stable. No additional image layers which blow up the total image size and might by a security risk.
@@ -40,7 +24,7 @@ You have two options to get the image:
 
 ## ownCloud up and running
 
-Checkout the [Makefile][] for an example or just run `make owncloud` which will setup a ownCloud container instance (called "owncloud"). After that, just head over to [http://localhost/](http://localhost/) and give it a try. You can now create an admin account. For testing purposes you can use SQLite (but remember to use a real database in production).
+Checkout the [Makefile][] for an example or just run `make owncloud` which will setup a ownCloud container instance (called "owncloud"). After that, just head over to http://localhost/ and give it a try. You can now create an admin account. For testing purposes you can use SQLite (but remember to use a real database in production).
 
 ## Running ownCloud in production
 
@@ -94,3 +78,18 @@ List of previous maintainers:
 ## License
 
 This project is distributed under [GNU Affero General Public License, Version 3][AGPLv3].
+
+[ypid]: https://github.com/ypid
+[silvio]: https://github.com/silvio
+[jchaney]: https://github.com/jchaney
+
+[Makefile]: /Makefile
+[ownCloud]: https://owncloud.org/
+[MariaDB]: https://mariadb.org/
+[nginx]: https://en.wikipedia.org/wiki/Nginx
+
+[3party_apps.conf]: https://github.com/jchaney/owncloud/blob/master/configs/3party_apps.conf
+[oc-install-3party-apps]: https://github.com/jchaney/owncloud/blob/master/misc/oc-install-3party-apps
+[AGPLv3]: https://github.com/jchaney/owncloud/blob/master/LICENSE
+[this.project_docker_hub_url]: https://registry.hub.docker.com/u/jchaney/owncloud/
+[this.project_github_url]: https://github.com/jchaney/owncloud
