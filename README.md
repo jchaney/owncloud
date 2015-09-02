@@ -20,7 +20,7 @@ Automated builds are hosted on [Docker Hub][this.project_docker_hub_url].
 You have two options to get the image:
 
 1. Build it yourself with `make build`.
-2. Download it via `docker pull jchaney/owncloud` ([automated build][Docker Hub])
+2. Download it via `docker pull jchaney/owncloud` ([automated build][this.project_docker_hub_url]).
 
 ## ownCloud up and running
 
@@ -28,14 +28,14 @@ Checkout the [Makefile][] for an example or just run `make owncloud` which will 
 
 ## Running ownCloud in production
 
-Setup a separat container running your database server and link it to the ownCloud container.
+Setup a separate container running your database server and link it to the ownCloud container.
 To setup ownCloud with [MariaDB] as backend, just run:
 
 ```Shell
 make owncloud-production
 ```
 
-In the initial ownCloud setup, you need to supply the database password which you can look up via (`MYSQL_PASSWORD`):
+In the initial ownCloud setup, you need to supply the database user and password which you can look up via (`MYSQL_USER`, `MYSQL_PASSWORD`):
 
 ```Shell
 docker exec owncloud-mariadb env
@@ -47,7 +47,7 @@ That should be it :smile:
 
 ## Installing 3party apps
 
-Just write the command(s) needed to install apps in configuration file, mount it in the container and run
+Just write the command(s) needed to install apps in a configuration file, mount it in the container and run
 
 ```Shell
 oc-install-3party-apps /owncloud/path/to/your/config /var/www/owncloud/apps_persistent
