@@ -14,6 +14,7 @@ Automated builds are hosted on [Docker Hub][this.project_docker_hub_url].
   See https://owncloud.org/blog/making-owncloud-faster-through-caching/
 * Installs the ownCloud tarball directly from https://owncloud.org/ and it [securely](https://github.com/jchaney/owncloud/pull/12) verifies the GPG signature.
 * Makes installing of 3party apps easy and keeps them across updates.
+* The [`occ`][occ] command can be used just by typing `docker exec -ti $owncloud_container_name occ`.
 
 ## Getting the image
 
@@ -85,6 +86,7 @@ This project is distributed under [GNU Affero General Public License, Version 3]
 
 [Makefile]: /Makefile
 [ownCloud]: https://owncloud.org/
+[occ]: https://doc.owncloud.org/server/8.1/admin_manual/configuration_server/occ_command.html
 [MariaDB]: https://mariadb.org/
 [nginx]: https://en.wikipedia.org/wiki/Nginx
 
