@@ -15,7 +15,10 @@ docker_owncloud_mariadb_user ?= owncloud-production
 image_owncloud ?= jchaney/owncloud
 image_mariadb  ?= mariadb
 
-.PHONY: start stop run build build-dev owncloud owncloud-https owncloud-mariadb owncloud-production owncloud-dev
+.PHONY: default start stop run build build-dev owncloud owncloud-https owncloud-mariadb owncloud-production owncloud-dev
+
+default:
+	@echo 'See Makefile and README.md'
 
 start:
 	docker start owncloud
