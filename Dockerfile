@@ -28,7 +28,7 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
         wget
 
 ## Check latest version: https://owncloud.org/install/#instructions-server
-ENV OWNCLOUD_VERSION 8.1.1
+ENV OWNCLOUD_VERSION 8.1.3
 ENV OWNCLOUD_IN_ROOTPATH 0
 ENV OWNCLOUD_SERVERNAME localhost
 
@@ -39,7 +39,7 @@ ADD configs/3party_apps.conf configs/owncloud_config.php configs/nginx_ssl.conf 
 ## RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26
 
 ## For testing:
-# ADD owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
+# COPY owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
 
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2.asc /tmp/oc.tar.bz2.asc
