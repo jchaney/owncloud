@@ -33,8 +33,7 @@ ENV OWNCLOUD_IN_ROOTPATH 0
 ENV OWNCLOUD_SERVERNAME localhost
 
 ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
-ADD configs/3party_apps.conf /owncloud/
-ADD configs/nginx_ssl.conf configs/nginx.conf /root/
+ADD configs/3party_apps.conf configs/owncloud_config.php configs/nginx_ssl.conf configs/nginx.conf /root/
 
 ## Could be used: https://github.com/docker-library/owncloud/blob/master/8.1/Dockerfile
 ## RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26
@@ -52,8 +51,6 @@ RUN mkdir --parent /var/www/owncloud/apps_persistent /owncloud /var/log/cron && 
     chown -R www-data:www-data /var/www/owncloud && \
     ln --symbolic --force /owncloud/config.php /var/www/owncloud/config/config.php && \
     rm /tmp/oc.tar.bz2 /tmp/oc.tar.bz2.asc /tmp/owncloud.asc
-
-ADD configs/owncloud_config.php /owncloud/config.php
 
 ## Fixes: PHP is configured to populate raw post data. Since PHP 5.6 this will lead to PHP throwing notices for perfectly valid code. #19
 RUN echo 'always_populate_raw_post_data = -1' | tee --append /etc/php5/cli/php.ini /etc/php5/fpm/php.ini

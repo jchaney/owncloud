@@ -40,6 +40,8 @@ owncloud:
 		--name "$@" \
 		$(DOCKER_RUN_OPTIONS) \
 		--volume "$(docker_owncloud_permanent_storage)/data:/var/www/owncloud/data" \
+		--volume "$(docker_owncloud_permanent_storage)/additional_apps:/var/www/owncloud/apps_persistent" \
+		--volume "$(docker_owncloud_permanent_storage)/config:/owncloud" \
 		--publish $(docker_owncloud_http_port):80 \
 		--publish $(docker_owncloud_https_port):443 \
 		--env "OWNCLOUD_IN_ROOTPATH=$(docker_owncloud_in_root_path)" \
@@ -54,6 +56,8 @@ owncloud-https:
 		--publish $(docker_owncloud_http_port):80 \
 		--publish $(docker_owncloud_https_port):443 \
 		--volume "$(docker_owncloud_permanent_storage)/data:/var/www/owncloud/data" \
+		--volume "$(docker_owncloud_permanent_storage)/additional_apps:/var/www/owncloud/apps_persistent" \
+		--volume "$(docker_owncloud_permanent_storage)/config:/owncloud" \
 		--volume "$(docker_owncloud_ssl_cert):$(docker_owncloud_ssl_cert):ro" \
 		--volume "$(docker_owncloud_ssl_key):$(docker_owncloud_ssl_key):ro" \
 		--env "OWNCLOUD_IN_ROOTPATH=$(docker_owncloud_in_root_path)" \
@@ -71,6 +75,8 @@ owncloud-production: owncloud-mariadb
 		--publish $(docker_owncloud_http_port):80 \
 		--publish $(docker_owncloud_https_port):443 \
 		--volume "$(docker_owncloud_permanent_storage)/data:/var/www/owncloud/data" \
+		--volume "$(docker_owncloud_permanent_storage)/additional_apps:/var/www/owncloud/apps_persistent" \
+		--volume "$(docker_owncloud_permanent_storage)/config:/owncloud" \
 		--volume "$(docker_owncloud_ssl_cert):$(docker_owncloud_ssl_cert):ro" \
 		--volume "$(docker_owncloud_ssl_key):$(docker_owncloud_ssl_key):ro" \
 		--env "OWNCLOUD_IN_ROOTPATH=$(docker_owncloud_in_root_path)" \
@@ -102,10 +108,8 @@ owncloud-dev:
 		$(DOCKER_RUN_OPTIONS) \
 		--volume "$(docker_owncloud_permanent_storage)-dev/data:/var/www/owncloud/data" \
 		--volume "$(docker_owncloud_permanent_storage)-dev/additional_apps:/var/www/owncloud/apps_persistent" \
+		--volume "$(docker_owncloud_permanent_storage)-dev/config:/owncloud" \
 		--publish $(docker_owncloud_http_port):80 \
 		--publish ""$(docker_owncloud_https_port):443 \
 		--env "OWNCLOUD_IN_ROOTPATH=$(docker_owncloud_in_root_path)" \
 		$(image_owncloud)
-
-		# --volume $(docker_owncloud_permanent_storage)-dev/config:/owncloud \
-		# --volume $(PWD)/configs/nginx_ssl.conf:/root/nginx_ssl.conf \
