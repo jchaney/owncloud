@@ -36,13 +36,11 @@ To setup ownCloud with [MariaDB] as backend, just run:
 make owncloud-production
 ```
 
-In the initial ownCloud setup, you need to supply the database user and password which you can look up via (`MYSQL_USER`, `MYSQL_PASSWORD`):
+In the initial ownCloud setup, you need to supply the database user, password, database name and database host which you can look up via:
 
 ```Shell
-docker exec owncloud-mariadb env
+make owncloud-mariadb-get-pw
 ```
-
-The hostname of your database is "db".
 
 That should be it :smile:
 

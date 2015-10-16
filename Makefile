@@ -15,7 +15,7 @@ docker_owncloud_mariadb_user ?= owncloud-production
 image_owncloud ?= jchaney/owncloud
 image_mariadb  ?= mariadb
 
-.PHONY: default start stop run build build-dev owncloud owncloud-https owncloud-mariadb owncloud-production owncloud-dev
+.PHONY: default start stop run build build-dev owncloud owncloud-https owncloud-mariadb owncloud-mariadb-get-pw owncloud-mariadb-cli owncloud-production owncloud-dev rm-containers rm-container-tmp-data
 
 default:
 	@echo 'See Makefile and README.md'
@@ -27,6 +27,12 @@ stop:
 	docker stop owncloud owncloud-https owncloud-mariadb owncloud-production owncloud-dev
 
 run: owncloud
+
+rm-containers:
+	docker rm --force owncloud owncloud-https owncloud-mariadb owncloud-production owncloud-dev
+
+rm-container-tmp-data:
+	rm -rf "$(docker_owncloud_permanent_storage)" "$(docker_owncloud_permanent_storage)-dev" || echo "You need root permissions for this"
 
 build:
 	docker build --no-cache=true --tag $(image_owncloud) .
@@ -83,10 +89,10 @@ owncloud-production: owncloud-mariadb
 		--env "OWNCLOUD_SERVERNAME=$(docker_owncloud_servername)" \
 		--env "SSL_CERT=$(docker_owncloud_ssl_cert)" \
 		--env "SSL_KEY=$(docker_owncloud_ssl_key)" \
-		--env "MYSQL_ROOT_PASSWORD=" \
-		--env "MYSQL_USER=" \
-		--env "MYSQL_DATABASE=" \
-		--env "MYSQL_PASSWORD=" \
+		--env "DB_ENV_MYSQL_USER=overwrite" \
+		--env "DB_ENV_MYSQL_PASSWORD=overwrite" \
+		--env "DB_ENV_MYSQL_DATABASE=overwrite" \
+		--env "DB_ENV_MYSQL_ROOT_PASSWORD=overwrite" \
 		$(image_owncloud)
 
 owncloud-mariadb:
@@ -100,6 +106,21 @@ owncloud-mariadb:
 		--env "MYSQL_DATABASE=$(docker_owncloud_mariadb_user)" \
 		--env "MYSQL_PASSWORD=$(shell pwgen --secure 40 1)" \
 		$(image_mariadb)
+
+owncloud-mariadb-get-pw:
+	docker exec owncloud-mariadb \
+		sh -c '(env | egrep "^MYSQL_USER="; \
+				env | egrep "^MYSQL_(DATABASE|PASSWORD)="; \
+			) | sed "s/=/: /"; \
+			echo "Database host: db"'
+
+owncloud-mariadb-cli:
+	docker run --rm --interactive --tty \
+		--name "$@" \
+		$(DOCKER_RUN_OPTIONS) \
+		--link owncloud-mariadb:mysql \
+		$(image_mariadb) \
+		sh -c 'mysql -h"$$MYSQL_PORT_3306_TCP_ADDR" -P"$$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
 
 owncloud-dev:
 	-@docker rm --force "$@"
