@@ -30,6 +30,16 @@ Checkout the [Makefile][] for an example or just run `make owncloud` which will 
 ## Running ownCloud in production
 
 Setup a separate container running your database server and link it to the ownCloud container.
+For running in production, you need to provide a TLS key and certificate. The
+Makefile defaults to `/etc/ssl/private/ssl-cert-snakeoil.key` and
+`/etc/ssl/certs/ssl-cert-snakeoil.pem`. Make sure those files exist or extend
+the Makefile (you can include this Makefile and overwrite some variables in
+your own Makefile). To generate self signed once you can run the following command:
+
+```Shell
+make-ssl-cert generate-default-snakeoil
+```
+
 To setup ownCloud with [MariaDB] as backend, just run:
 
 ```Shell
