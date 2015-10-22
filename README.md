@@ -84,6 +84,14 @@ List of previous maintainers:
 1. [Josh Chaney][jchaney]
 2. [silvio][]
 
+## Problems
+
+* If you get "Command not found" for any of the programs used then install it (make sure you know what you are doing).
+
+  > Your distribution packages: You should find missing dependencies from the errors yourself. It's _your_ machine, you're supposed to know it.
+
+  Ref: https://bb.osmocom.org/trac/wiki/PreliminaryRequirements#Generalknowledge
+
 ## License
 
 This project is distributed under [GNU Affero General Public License, Version 3][AGPLv3].
