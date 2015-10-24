@@ -32,6 +32,10 @@ ENV OWNCLOUD_VERSION 8.1.3
 ENV OWNCLOUD_IN_ROOTPATH 0
 ENV OWNCLOUD_SERVERNAME localhost
 
+LABEL com.github.jchaney.owncloud.version="$OWNCLOUD_VERSION" \
+      com.github.jchaney.owncloud.license="AGPL-3.0" \
+      com.github.jchaney.owncloud.url="https://github.com/jchaney/owncloud"
+
 ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
 ADD configs/3party_apps.conf configs/owncloud_config.php configs/nginx_ssl.conf configs/nginx.conf /root/
 
