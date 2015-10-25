@@ -133,7 +133,7 @@ owncloud-dev:
 		--publish $(docker_owncloud_http_port):80 \
 		--publish ""$(docker_owncloud_https_port):443 \
 		--volume "$(PWD)/debugging/phpinfo.php:/var/www/owncloud/phpinfo.php" \
-		--volume "$(PWD)/configs/php_uploads.ini:/etc/php5/fpm/conf.d/uploads.ini" \
 		--env "OWNCLOUD_IN_ROOTPATH=$(docker_owncloud_in_root_path)" \
 		$(image_owncloud)
+		# --volume "$(PWD)/configs/php_uploads.ini:/etc/php5/fpm/conf.d/uploads.ini" \
 		# --volume "$(PWD)/configs/htaccess_uploads:/var/www/owncloud/.htaccess_upload" \
