@@ -44,21 +44,19 @@ ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
 ADD configs/3party_apps.conf configs/owncloud_config.php configs/nginx_ssl.conf configs/nginx.conf /root/
 
 ## Could be used: https://github.com/docker-library/owncloud/blob/master/8.1/Dockerfile
-## RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26
 
 ## For testing:
 # COPY owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
 
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
 ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2.asc /tmp/oc.tar.bz2.asc
-ADD misc/owncloud.asc /tmp/owncloud.asc
 RUN mkdir --parent /var/www/owncloud/apps_persistent /owncloud /var/log/cron && \
-    gpg --import /tmp/owncloud.asc && \
     gpg --verify /tmp/oc.tar.bz2.asc && \
     tar -C /var/www/ -xf /tmp/oc.tar.bz2 && \
     chown -R www-data:www-data /var/www/owncloud && \
     ln --symbolic --force /owncloud/config.php /var/www/owncloud/config/config.php && \
-    rm /tmp/oc.tar.bz2 /tmp/oc.tar.bz2.asc /tmp/owncloud.asc
+    rm /tmp/oc.tar.bz2 /tmp/oc.tar.bz2.asc
 
 ## Fixes: PHP is configured to populate raw post data. Since PHP 5.6 this will lead to PHP throwing notices for perfectly valid code. #19
 RUN echo 'always_populate_raw_post_data = -1' | tee --append /etc/php5/cli/php.ini /etc/php5/fpm/php.ini
