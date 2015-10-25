@@ -27,8 +27,12 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
         sudo \
         wget
 
+## https://download.owncloud.org/download/repositories/stable/owncloud/
+## Key not yet on keyserver? Not using it.
+## gpg --recv-keys "BCEC A903 25B0 72AB 1245  F739 AB7C 32C3 5180 350A"
+#
 ## Check latest version: https://owncloud.org/install/#instructions-server
-ENV OWNCLOUD_VERSION 8.1.3
+ENV OWNCLOUD_VERSION 8.2.0
 ENV OWNCLOUD_IN_ROOTPATH 0
 ENV OWNCLOUD_SERVERNAME localhost
 
