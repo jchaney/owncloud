@@ -37,7 +37,8 @@ LABEL com.github.jchaney.owncloud.version="$OWNCLOUD_VERSION" \
       com.github.jchaney.owncloud.url="https://github.com/jchaney/owncloud"
 
 ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
-ADD configs/3party_apps.conf configs/owncloud_config.php configs/nginx_ssl.conf configs/nginx.conf /root/
+ADD configs/3party_apps.conf configs/nginx_ssl.conf configs/nginx.conf /root/
+ADD configs/owncloud_config.php configs/owncloud_autoconfig.php /root/
 
 ## Could be used: https://github.com/docker-library/owncloud/blob/master/8.1/Dockerfile
 ## RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26

@@ -1,0 +1,31 @@
+owncloud-db:
+  container_name: owncloud-db
+  image: ${image_mariadb}
+  volumes:
+    - ${docker_owncloud_permanent_storage}/db:/var/lib/mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=${docker_owncloud_mariadb_root_password}
+    - MYSQL_USER=owncloud
+    - MYSQL_DATABASE=owncloud
+    - MYSQL_PASSWORD=${docker_owncloud_mariadb_user_password}
+
+owncloud-server:
+  container_name: owncloud-server
+  image: ${image_owncloud}
+  # build: .
+  links:
+    - owncloud-db:mysql
+  ports:
+    - "${docker_owncloud_http_port}:80"
+    - "${docker_owncloud_https_port}:443"
+  volumes:
+    - ${docker_owncloud_permanent_storage}/data:/var/www/owncloud/data
+    - ${docker_owncloud_permanent_storage}/additional_apps:/var/www/owncloud/apps_persistent
+    - ${docker_owncloud_permanent_storage}/config:/owncloud
+    - ${docker_owncloud_ssl_cert}:/owncloud.cert:ro
+    - ${docker_owncloud_ssl_key}:/owncloud.key:ro
+  environment:
+    - OWNCLOUD_IN_ROOTPATH=${docker_owncloud_in_root_path}
+    - OWNCLOUD_SERVERNAME=${docker_owncloud_servername}
+    - SSL_CERT="/owncloud.cert"
+    - SSL_KEY="/owncloud.key"

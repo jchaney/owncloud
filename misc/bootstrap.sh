@@ -7,6 +7,18 @@ touch /var/log/cron/owncloud.log
 test -e /owncloud/config.php || cp /root/owncloud_config.php /owncloud/config.php
 test -e /owncloud/3party_apps.conf || cp /root/3party_apps.conf /owncloud/
 
+# Check wether a mysql database is linked
+if [ -n "$MYSQL_PORT_3306_TCP_ADDR" ]
+then
+    # Set the auto configuration to the linked mysql database
+    sed -i "s/conf_dbname/$MYSQL_ENV_MYSQL_DATABASE/g" /root/owncloud_autoconfig.php
+    sed -i "s/conf_dbuser/$MYSQL_ENV_MYSQL_USER/g" /root/owncloud_autoconfig.php
+    sed -i "s/conf_dbpassword/$MYSQL_ENV_MYSQL_PASSWORD/g" /root/owncloud_autoconfig.php
+    sed -i "s/conf_dbhost/$MYSQL_PORT_3306_TCP_ADDR:$MYSQL_PORT_3306_TCP_PORT/g" /root/owncloud_autoconfig.php
+
+    cp /root/owncloud_autoconfig.php /var/www/owncloud/config/autoconfig.php
+fi
+
 if [ -z "$SSL_CERT" ]
 then
     echo "Copying nginx.conf without SSL support …"

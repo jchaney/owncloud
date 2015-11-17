@@ -65,6 +65,41 @@ oc-install-3party-apps /owncloud/path/to/your/config /var/www/owncloud/apps_pers
 in your container.
 Checkout the [example configuration][3party_apps.conf] and the [script][oc-install-3party-apps] which does the work for details.
 
+## docker-compose support
+
+You can also run this image with `docker-compose`. First you need to declare all env variables since `docker-compose` does not support (yet) default variables.
+
+```sh
+# Where to store data and database ?
+export docker_owncloud_permanent_storage="~/owncloud_data"
+
+# SSL Certificates to use.
+export docker_owncloud_ssl_cert="../certs/cloud.cert"
+export docker_owncloud_ssl_key="../certs/cloud.key"
+
+# Servername
+export docker_owncloud_servername="localhost"
+
+export docker_owncloud_http_port="80"
+export docker_owncloud_https_port="443"
+export docker_owncloud_in_root_path="1"
+
+export docker_owncloud_mariadb_root_password=$(pwgen --secure 40 1)
+export docker_owncloud_mariadb_user_password=$(pwgen --secure 40 1)
+
+export image_owncloud="jchaney/owncloud"
+export image_mariadb="mysql"
+
+```
+
+Then :
+
+```sh
+docker-compose up
+```
+
+That's all !
+
 ## Related projects
 
 * [official docker repository for ownCloud](https://hub.docker.com/_/owncloud/)
