@@ -11,8 +11,8 @@ owncloud-db:
 
 owncloud-server:
   container_name: owncloud-server
-  # image: ${image_owncloud}
-  build: .
+  image: ${image_owncloud}
+  # build: .
   links:
     - owncloud-db:mysql
   ports:
