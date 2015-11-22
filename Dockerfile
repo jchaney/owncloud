@@ -43,11 +43,8 @@ ADD configs/owncloud_config.php configs/owncloud_autoconfig.php /root/
 ## Could be used: https://github.com/docker-library/owncloud/blob/master/8.1/Dockerfile
 ## RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26
 
-## For testing:
-# COPY owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
-
-ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
-ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2.asc /tmp/oc.tar.bz2.asc
+RUN wget --no-verbose --output-document /tmp/oc.tar.bz2 https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 && \
+    wget --no-verbose --output-document /tmp/oc.tar.bz2.asc https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2.asc
 ADD misc/owncloud.asc /tmp/owncloud.asc
 RUN mkdir --parent /var/www/owncloud/apps_persistent /owncloud /var/log/cron && \
     gpg --import /tmp/owncloud.asc && \
