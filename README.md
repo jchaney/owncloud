@@ -15,6 +15,7 @@ Automated builds are hosted on [Docker Hub][this.project_docker_hub_url].
 * Installs the ownCloud tarball directly from https://owncloud.org/ and it [securely](https://github.com/jchaney/owncloud/pull/12) verifies the GPG signature.
 * Makes installing of 3party apps easy and keeps them across updates.
 * The [`occ`][occ] command can be used just by typing `docker exec -ti $owncloud_container_name occ`.
+* ownCloud can only be updated by redeploying the container. No update via the web interface is possible. The ownCloud installation is fully contained in the container and not made persistent. This allows to make the ownCloud installation write protected for the Webserver and PHP which run as `www-data`.
 
 ## Getting the image
 
@@ -53,6 +54,19 @@ make owncloud-mariadb-get-pw
 ```
 
 That should be it :smile:
+
+## Update your container and ownCloud
+
+It is recommended to rebuild/pull this image on a regular basis and redeploy your ownCloud container(s) to get the latest security fixes.
+Note that ownCloud version jumps are uploaded to the `latest` tag of this image once they are tested. You might want to watch this repository to see when this happens.
+
+Once the ownCloud image is up-to-date, just run:
+
+```Shell
+make owncloud-production
+```
+
+to update your container. After that you might need to update the database of ownCloud via its web interface or via `occ`.
 
 ## Installing 3party apps
 

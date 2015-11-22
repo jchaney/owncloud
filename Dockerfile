@@ -40,24 +40,21 @@ LABEL com.github.jchaney.owncloud.version="$OWNCLOUD_VERSION" \
       com.github.jchaney.owncloud.license="AGPL-3.0" \
       com.github.jchaney.owncloud.url="https://github.com/jchaney/owncloud"
 
-ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
-ADD configs/3party_apps.conf configs/nginx_ssl.conf configs/nginx.conf /root/
-ADD configs/owncloud_config.php configs/owncloud_autoconfig.php /root/
-
 ## Could be used: https://github.com/docker-library/owncloud/blob/master/8.1/Dockerfile
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26
 
-## For testing:
-# COPY owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
-
-ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 /tmp/oc.tar.bz2
-ADD https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2.asc /tmp/oc.tar.bz2.asc
+RUN wget --no-verbose --output-document /tmp/oc.tar.bz2 https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 && \
+    wget --no-verbose --output-document /tmp/oc.tar.bz2.asc https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2.asc
 RUN mkdir --parent /var/www/owncloud/apps_persistent /owncloud /var/log/cron && \
     gpg --verify /tmp/oc.tar.bz2.asc && \
-    tar -C /var/www/ -xf /tmp/oc.tar.bz2 && \
-    chown -R www-data:www-data /var/www/owncloud && \
+    tar --no-same-owner --directory /var/www/ --extract --file /tmp/oc.tar.bz2 && \
     ln --symbolic --force /owncloud/config.php /var/www/owncloud/config/config.php && \
+    ln --symbolic --force /owncloud/docker_image_owncloud.config.php /var/www/owncloud/config/docker_image_owncloud.config.php && \
     rm /tmp/oc.tar.bz2 /tmp/oc.tar.bz2.asc
+
+ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
+ADD configs/3party_apps.conf configs/nginx_ssl.conf configs/nginx.conf /root/
+ADD configs/docker_image_owncloud.config.php configs/owncloud_autoconfig.php /root/
 
 ## Fixes: PHP is configured to populate raw post data. Since PHP 5.6 this will lead to PHP throwing notices for perfectly valid code. #19
 RUN echo 'always_populate_raw_post_data = -1' | tee --append /etc/php5/cli/php.ini /etc/php5/fpm/php.ini
