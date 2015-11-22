@@ -1,9 +1,10 @@
 <?php
-// Default options.
+// Custom options for this Docker image.
+// https://github.com/jchaney/owncloud
 $CONFIG = array (
-    'installed' => false,
 
     // Memory caching backend configuration: APC user backend
+
     'memcache.local' => '\OC\Memcache\APCu',
 
     // Install additional applications on persistent storage.
@@ -19,4 +20,8 @@ $CONFIG = array (
             'writable' => true,
         ),
     ),
+
+    // Don’t allow ownCloud update via the web interface.
+    // https://github.com/jchaney/owncloud/issues/37
+    'updatechecker' => false,
 );
