@@ -66,7 +66,7 @@ Once the ownCloud image is up-to-date, just run:
 make owncloud-production
 ```
 
-to update your container. After that you might need to update the database of ownCloud via its web interface or via `occ`.
+to update your container. If you don’t use the Makefile you will need to update the database of ownCloud via the web interface or via `occ`.
 
 ## Installing 3party apps
 
