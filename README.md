@@ -70,13 +70,12 @@ to update your container. If you don’t use the Makefile you will need to updat
 
 ## Installing 3party apps
 
-Just write the command(s) needed to install apps in a configuration file, mount it in the container and run
+Just write the command(s) needed to install apps in a configuration file and mount it in the container.
 
-```Shell
-oc-install-3party-apps /owncloud/path/to/your/config /var/www/owncloud/apps_persistent
+```
+--volume "/path/on/host/to/3party_apps.conf:/owncloud/3party_apps.conf:ro" \
 ```
 
-in your container.
 Checkout the [example configuration][3party_apps.conf] and the [script][oc-install-3party-apps] which does the work for details.
 
 ## docker-compose support

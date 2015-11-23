@@ -45,6 +45,9 @@ cat << EOF | xargs chown --recursive www-data:www-data
 EOF
 
 occ app:disable updater
+occ upgrade
+
+oc-install-3party-apps /owncloud/3party_apps.conf /var/www/owncloud/apps_persistent
 
 echo "Starting server …"
 

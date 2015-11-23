@@ -71,7 +71,6 @@ owncloud-https:
 		--env "SSL_CERT=$(docker_owncloud_ssl_cert)" \
 		--env "SSL_KEY=$(docker_owncloud_ssl_key)" \
 		$(image_owncloud)
-	-docker exec --interactive --tty "$@" occ upgrade
 
 owncloud-production: owncloud-mariadb
 	-@docker rm --force "$@"
@@ -95,7 +94,6 @@ owncloud-production: owncloud-mariadb
 		--env "DB_ENV_MYSQL_DATABASE=overwrite" \
 		--env "DB_ENV_MYSQL_ROOT_PASSWORD=overwrite" \
 		$(image_owncloud)
-	-docker exec --interactive --tty "$@" occ upgrade
 
 owncloud-mariadb:
 	-@docker rm --force "$@"
