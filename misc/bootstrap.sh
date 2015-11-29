@@ -45,8 +45,11 @@ cat << EOF | xargs chown --recursive www-data:www-data
 /owncloud
 EOF
 
-occ app:disable updater
-occ upgrade
+if ! occ  2>/dev/null | grep --quiet 'ownCloud is not installed'
+then
+    occ app:disable updater
+    occ upgrade
+fi
 
 oc-install-3party-apps /owncloud/3party_apps.conf /var/www/owncloud/apps_persistent
 
