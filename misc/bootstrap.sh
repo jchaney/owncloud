@@ -38,6 +38,7 @@ fi
 
 cat << EOF | xargs chown --recursive www-data:www-data
 /var/www/owncloud/data
+/var/www/owncloud/assets
 /var/www/owncloud/apps
 /var/www/owncloud/apps_persistent
 /var/www/owncloud/config/config.php
