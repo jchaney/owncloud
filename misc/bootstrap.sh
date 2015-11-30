@@ -4,10 +4,11 @@ touch /var/log/nginx/access.log
 touch /var/log/nginx/error.log
 touch /var/log/cron/owncloud.log
 
-test -e /owncloud/config.php || cp /root/owncloud_config.php /owncloud/config.php
+test -e /owncloud/config.php || cp /root/owncloud_config.php /owncloud/docker_image.config.php
+test -e /owncloud/docker_image_owncloud.config.php || cp /root/docker_image_owncloud.config.php /owncloud/docker_image_owncloud.config.php
 test -e /owncloud/3party_apps.conf || cp /root/3party_apps.conf /owncloud/
 
-# Check wether a mysql database is linked
+# Check whether a mysql database is linked
 if [ -n "$MYSQL_PORT_3306_TCP_ADDR" ]
 then
     # Set the auto configuration to the linked mysql database
@@ -35,7 +36,23 @@ else
     sed --in-place "s#-x-replace-oc-rootpath-#/var/www/#" /etc/nginx/nginx.conf
 fi
 
-chown -R www-data:www-data /var/www/owncloud /owncloud
+cat << EOF | xargs chown --recursive www-data:www-data
+/var/www/owncloud/data
+/var/www/owncloud/assets
+/var/www/owncloud/apps
+/var/www/owncloud/apps_persistent
+/var/www/owncloud/config/config.php
+/owncloud
+EOF
+
+if ! occ  2>/dev/null | grep --quiet 'ownCloud is not installed'
+then
+    occ app:disable updater
+    occ upgrade
+fi
+
+oc-install-3party-apps /owncloud/3party_apps.conf /var/www/owncloud/apps_persistent
+
 echo "Starting server …"
 
 tail --follow --retry /var/log/nginx/*.log /var/log/cron/owncloud.log &

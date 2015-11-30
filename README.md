@@ -15,6 +15,7 @@ Automated builds are hosted on [Docker Hub][this.project_docker_hub_url].
 * Installs the ownCloud tarball directly from https://owncloud.org/ and it [securely](https://github.com/jchaney/owncloud/pull/12) verifies the GPG signature.
 * Makes installing of 3party apps easy and keeps them across updates.
 * The [`occ`][occ] command can be used just by typing `docker exec -ti $owncloud_container_name occ`.
+* ownCloud can only be updated by redeploying the container. No update via the web interface is possible. The ownCloud installation is fully contained in the container and not made persistent. This allows to make the ownCloud installation write protected for the Webserver and PHP which run as `www-data`.
 
 ## Getting the image
 
@@ -54,15 +55,27 @@ make owncloud-mariadb-get-pw
 
 That should be it :smile:
 
-## Installing 3party apps
+## Update your container and ownCloud
 
-Just write the command(s) needed to install apps in a configuration file, mount it in the container and run
+It is recommended to rebuild/pull this image on a regular basis and redeploy your ownCloud container(s) to get the latest security fixes.
+Note that ownCloud version jumps are uploaded to the `latest` tag of this image once they are tested. You might want to watch this repository to see when this happens.
+
+Once the ownCloud image is up-to-date, just run:
 
 ```Shell
-oc-install-3party-apps /owncloud/path/to/your/config /var/www/owncloud/apps_persistent
+make owncloud-production
 ```
 
-in your container.
+to update your container. If you don’t use the Makefile you will need to update the database of ownCloud via the web interface or via `occ`.
+
+## Installing 3party apps
+
+Just write the command(s) needed to install apps in a configuration file and mount it in the container.
+
+```
+--volume "/path/on/host/to/3party_apps.conf:/owncloud/3party_apps.conf:ro" \
+```
+
 Checkout the [example configuration][3party_apps.conf] and the [script][oc-install-3party-apps] which does the work for details.
 
 ## docker-compose support
