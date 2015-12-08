@@ -123,14 +123,14 @@ That's all !
 
   Uses Apache as webserver and is based on a self build LAMP stack based on Arch Linux.
 
-* [Ansible role to install and manage ownCloud instance](https://github.com/debops/ansible-owncloud)
+* [Ansible role to install and manage ownCloud instances](https://github.com/debops/ansible-owncloud)
 
   Automation framework for setting up ownCloud on any Debian based system. This offers much
   more flexibility and is not limited to Docker. So you can setup a ownCloud
   instance in a KVM virtual machine and/or a LXC container for example.
 
   This role is part of the [DebOps](http://debops.org/) project which allows
-  you to automate all the steps listed above (setting up a Hypervisor host with
+  you to automate all the steps mentioned above (setting up a Hypervisor host with
   support for KVM and/or LXC, setting up the virtual machine/container and
   installing Webserver/PHP/Database and finally ownCloud).
 
