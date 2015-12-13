@@ -28,9 +28,9 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
         wget
 
 ## Check latest version: https://owncloud.org/install/#instructions-server
-ENV OWNCLOUD_VERSION 8.2.1
-ENV OWNCLOUD_IN_ROOTPATH 0
-ENV OWNCLOUD_SERVERNAME localhost
+ENV OWNCLOUD_VERSION="8.2.1" \
+    OWNCLOUD_IN_ROOTPATH="0" \
+    OWNCLOUD_SERVERNAME="localhost"
 
 LABEL com.github.jchaney.owncloud.version="$OWNCLOUD_VERSION" \
       com.github.jchaney.owncloud.license="AGPL-3.0" \
@@ -49,8 +49,7 @@ RUN mkdir --parent /var/www/owncloud/apps_persistent /owncloud /var/log/cron && 
     rm /tmp/oc.tar.bz2 /tmp/oc.tar.bz2.asc
 
 ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
-ADD configs/3party_apps.conf configs/nginx_ssl.conf configs/nginx.conf /root/
-ADD configs/docker_image_owncloud.config.php configs/owncloud_autoconfig.php /root/
+ADD configs/3party_apps.conf configs/nginx_ssl.conf configs/nginx.conf configs/docker_image_owncloud.config.php configs/owncloud_autoconfig.php /root/
 
 ## Fixes: PHP is configured to populate raw post data. Since PHP 5.6 this will lead to PHP throwing notices for perfectly valid code. #19
 RUN echo 'always_populate_raw_post_data = -1' | tee --append /etc/php5/cli/php.ini /etc/php5/fpm/php.ini
@@ -65,7 +64,6 @@ RUN echo 'env[PATH] = /usr/local/bin:/usr/bin:/bin' >> /etc/php5/fpm/pool.d/www.
 ADD configs/cron.conf /etc/oc-cron.conf
 RUN crontab /etc/oc-cron.conf
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 80 443
 
-ENTRYPOINT  ["bootstrap.sh"]
+ENTRYPOINT ["bootstrap.sh"]
