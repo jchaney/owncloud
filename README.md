@@ -177,5 +177,5 @@ This project is distributed under [GNU Affero General Public License, Version 3]
 [3party_apps.conf]: https://github.com/jchaney/owncloud/blob/master/configs/3party_apps.conf
 [oc-install-3party-apps]: https://github.com/jchaney/owncloud/blob/master/misc/oc-install-3party-apps
 [AGPLv3]: https://github.com/jchaney/owncloud/blob/master/LICENSE
-[this.project_docker_hub_url]: https://registry.hub.docker.com/u/jchaney/owncloud/
+[this.project_docker_hub_url]: https://hub.docker.com/r/jchaney/owncloud/
 [this.project_github_url]: https://github.com/jchaney/owncloud
