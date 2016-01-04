@@ -28,7 +28,7 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
         wget
 
 ## Check latest version: https://owncloud.org/install/#instructions-server
-ENV OWNCLOUD_VERSION="8.2.1" \
+ENV OWNCLOUD_VERSION="8.2.2" \
     OWNCLOUD_IN_ROOTPATH="0" \
     OWNCLOUD_SERVERNAME="localhost"
 
@@ -36,7 +36,6 @@ LABEL com.github.jchaney.owncloud.version="$OWNCLOUD_VERSION" \
       com.github.jchaney.owncloud.license="AGPL-3.0" \
       com.github.jchaney.owncloud.url="https://github.com/jchaney/owncloud"
 
-## Could be used: https://github.com/docker-library/owncloud/blob/master/8.1/Dockerfile
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys E3036906AD9F30807351FAC32D5D5E97F6978A26
 
 RUN wget --no-verbose --output-document /tmp/oc.tar.bz2 https://download.owncloud.org/community/owncloud-${OWNCLOUD_VERSION}.tar.bz2 && \
