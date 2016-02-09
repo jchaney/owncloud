@@ -7,6 +7,7 @@ touch /var/log/cron/owncloud.log
 test -e /owncloud/config.php || cp /root/owncloud_config.php /owncloud/docker_image.config.php
 test -e /owncloud/docker_image_owncloud.config.php || cp /root/docker_image_owncloud.config.php /owncloud/docker_image_owncloud.config.php
 test -e /owncloud/3party_apps.conf || cp /root/3party_apps.conf /owncloud/
+test -e /owncloud/dhparam.pem || openssl dhparam -out /owncloud/dhparam.pem 4096
 
 # Check whether a mysql database is linked
 if [ -n "$MYSQL_PORT_3306_TCP_ADDR" ]
