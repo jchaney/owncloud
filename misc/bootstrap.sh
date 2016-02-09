@@ -7,7 +7,6 @@ touch /var/log/cron/owncloud.log
 test -e /owncloud/config.php || cp /root/owncloud_config.php /owncloud/docker_image.config.php
 test -e /owncloud/docker_image_owncloud.config.php || cp /root/docker_image_owncloud.config.php /owncloud/docker_image_owncloud.config.php
 test -e /owncloud/3party_apps.conf || cp /root/3party_apps.conf /owncloud/
-test -e /owncloud/dhparam.pem || openssl dhparam -out /owncloud/dhparam.pem 4096
 
 # Check whether a mysql database is linked
 if [ -n "$MYSQL_PORT_3306_TCP_ADDR" ]
@@ -28,6 +27,11 @@ then
 else
     echo "Copying nginx.conf with SSL support …"
     sed "s#-x-replace-cert-x-#$SSL_CERT#;s#-x-replace-key-x-#$SSL_KEY#;s#-x-server-name-x-#$OWNCLOUD_SERVERNAME#" /root/nginx_ssl.conf > /etc/nginx/nginx.conf
+    if [ ! -e  /owncloud/dhparam.pem ]
+    then
+        echo "Generating prime for diffie-hellman key exchange"
+        openssl dhparam -out /owncloud/dhparam.pem 4096
+    fi
 fi
 
 if [ "${OWNCLOUD_IN_ROOTPATH}" = "1" ]
