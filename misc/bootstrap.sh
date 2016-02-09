@@ -29,7 +29,7 @@ else
     sed "s#-x-replace-cert-x-#$SSL_CERT#;s#-x-replace-key-x-#$SSL_KEY#;s#-x-server-name-x-#$OWNCLOUD_SERVERNAME#" /root/nginx_ssl.conf > /etc/nginx/nginx.conf
     if [ ! -e  /owncloud/dhparam.pem ]
     then
-        echo "Generating prime for diffie-hellman key exchange"
+        echo "Generating prime for diffie-hellman key exchange …"
         openssl dhparam -out /owncloud/dhparam.pem 4096
     fi
 fi
