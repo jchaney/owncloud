@@ -9,6 +9,7 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
         bzip2 \
         cron \
         nginx \
+        openssl \
         php-apc \
         php5-apcu \
         php5-cli \

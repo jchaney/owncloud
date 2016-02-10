@@ -15,6 +15,7 @@ Automated builds are hosted on [Docker Hub][this.project_docker_hub_url].
 * It is directly based on Debian stable. No additional image layers which blow up the total image size and might by a security risk.
 * Uses [nginx][] as webserver.
 * [Hardened TLS](https://github.com/BetterCrypto/Applied-Crypto-Hardening/blob/master/src/configuration/Webservers/nginx/default-hsts) configuration.
+* Generates unique Diffie Hellman parameters to mitigate precomputation based attacks on common parameters. Refs: [Guide to Deploying Diffie-Hellman for TLS](https://weakdh.org/sysadmin.html). Thanks to @FreekKalter for implementing.
 * Local caching enabled by default (APCu).
   See https://owncloud.org/blog/making-owncloud-faster-through-caching/
 * Installs the ownCloud tarball directly from https://owncloud.org/ and it [securely](https://github.com/jchaney/owncloud/pull/12) verifies the GPG signature.
