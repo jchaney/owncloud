@@ -8,20 +8,21 @@
 Docker image for [ownCloud][] with security in mind.
 
 The build instructions are tracked on [GitHub][this.project_github_url].
-Automated builds are hosted on [Docker Hub][this.project_docker_hub_url].
+[Automated builds][] are hosted on [Docker Hub][this.project_docker_hub_url].
 
 ## Why using this image
 
 * It is directly based on Debian stable. No additional image layers which blow up the total image size and might by a security risk.
 * Uses [nginx][] as webserver.
 * [Hardened TLS](https://github.com/BetterCrypto/Applied-Crypto-Hardening/blob/master/src/configuration/Webservers/nginx/default-hsts) configuration.
-* Generates unique Diffie Hellman parameters to mitigate precomputation based attacks on common parameters. Refs: [Guide to Deploying Diffie-Hellman for TLS](https://weakdh.org/sysadmin.html). Thanks to @FreekKalter for implementing.
+* Generates unique Diffie Hellman parameters to mitigate precomputation based attacks on common parameters. Refs: [Guide to Deploying Diffie-Hellman for TLS](https://weakdh.org/sysadmin.html).
 * Local caching enabled by default (APCu).
   See https://owncloud.org/blog/making-owncloud-faster-through-caching/
 * Installs the ownCloud tarball directly from https://owncloud.org/ and it [securely](https://github.com/jchaney/owncloud/pull/12) verifies the GPG signature.
 * Makes installing of 3party apps easy and keeps them across updates.
 * The [`occ`][occ] command can be used just by typing `docker exec -ti $owncloud_container_name occ`.
 * ownCloud can only be updated by redeploying the container. No update via the web interface is possible. The ownCloud installation is fully contained in the container and not made persistent. This allows to make the ownCloud installation write protected for the Webserver and PHP which run as `www-data`.
+* Automated database update on ownCloud update during the startup of a redeployed/updated container.
 
 ## Getting the image
 
@@ -72,23 +73,19 @@ Once the ownCloud image is up-to-date, just run:
 make owncloud-production
 ```
 
-to update your container. If you don’t use the Makefile you will need to update the database of ownCloud via the web interface or via `occ`.
+to update your container. ownCloud usually requires a database update when the version of ownCloud is bumped. This process [has been automated](/misc/bootstrap.sh) for this Docker image but remember that you are still in charge of making backups/snapshots prior to updates!
 
 ## Installing 3party apps
 
-Just write the command(s) needed to install apps in a configuration file and mount it in the container.
+Just write the command(s) needed to install apps in a configuration file and make sure it is present as `/owncloud/3party_apps.conf` in your container.
 
-```
---volume "/path/on/host/to/3party_apps.conf:/owncloud/3party_apps.conf:ro" \
-```
-
-Checkout the [example configuration][3party_apps.conf] and the [script][oc-install-3party-apps] which does the work for details.
+Checkout the [example configuration][3party_apps.conf] and the [install script][oc-install-3party-apps] for details.
 
 ## docker-compose support
 
 You can also run this image with `docker-compose`. First you need to declare all env variables since `docker-compose` does not support (yet) default variables.
 
-```sh
+```Shell
 # Where to store data and database ?
 export docker_owncloud_permanent_storage="~/owncloud_data"
 
@@ -111,9 +108,9 @@ export image_mariadb="mysql"
 
 ```
 
-Then :
+Then:
 
-```sh
+```Shell
 docker-compose up
 ```
 
@@ -180,3 +177,4 @@ This project is distributed under [GNU Affero General Public License, Version 3]
 [AGPLv3]: https://github.com/jchaney/owncloud/blob/master/LICENSE
 [this.project_docker_hub_url]: https://hub.docker.com/r/jchaney/owncloud/
 [this.project_github_url]: https://github.com/jchaney/owncloud
+[Automated builds]: https://docs.docker.com/docker-hub/builds/
