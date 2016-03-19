@@ -29,7 +29,7 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
         wget
 
 ## Check latest version: https://owncloud.org/install/#instructions-server
-ENV OWNCLOUD_VERSION="8.2.2" \
+ENV OWNCLOUD_VERSION="8.2.3" \
     OWNCLOUD_IN_ROOTPATH="0" \
     OWNCLOUD_SERVERNAME="localhost"
 
