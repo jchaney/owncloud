@@ -28,8 +28,8 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
         sudo \
         wget
 
-## Check latest version: https://owncloud.org/install/#instructions-server
-ENV OWNCLOUD_VERSION="8.2.3" \
+## Check latest version: https://github.com/owncloud/core/wiki/Maintenance-and-Release-Schedule
+ENV OWNCLOUD_VERSION="9.0.2" \
     OWNCLOUD_IN_ROOTPATH="0" \
     OWNCLOUD_SERVERNAME="localhost"
 
@@ -50,13 +50,6 @@ RUN mkdir --parent /var/www/owncloud/apps_persistent /owncloud /var/log/cron && 
 
 ADD misc/bootstrap.sh misc/occ misc/oc-install-3party-apps /usr/local/bin/
 ADD configs/3party_apps.conf configs/nginx_ssl.conf configs/nginx.conf configs/docker_image_owncloud.config.php configs/owncloud_autoconfig.php /root/
-
-## Fixes: PHP is configured to populate raw post data. Since PHP 5.6 this will lead to PHP throwing notices for perfectly valid code. #19
-RUN echo 'always_populate_raw_post_data = -1' | tee --append /etc/php5/cli/php.ini /etc/php5/fpm/php.ini
-
-## Allow usage of `sudo -u www-data php /var/www/owncloud/occ` with APC.
-## FIXME: Temporally: https://github.com/owncloud/core/issues/17329
-RUN echo 'apc.enable_cli = 1' >> /etc/php5/cli/php.ini
 
 ## Fixed warning in admin panel getenv('PATH') == '' for ownCloud 8.1.
 RUN echo 'env[PATH] = /usr/local/bin:/usr/bin:/bin' >> /etc/php5/fpm/pool.d/www.conf
