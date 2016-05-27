@@ -31,6 +31,7 @@ else
     then
         echo "Generating prime for diffie-hellman key exchange …"
         openssl dhparam -out /owncloud/dhparam.pem 4096
+        echo "Done generating DH prime"
     fi
 fi
 
