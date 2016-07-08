@@ -54,6 +54,10 @@ ADD configs/3party_apps.conf configs/nginx_ssl.conf configs/nginx.conf configs/d
 ## Fixed warning in admin panel getenv('PATH') == '' for ownCloud 8.1.
 RUN echo 'env[PATH] = /usr/local/bin:/usr/bin:/bin' >> /etc/php5/fpm/pool.d/www.conf
 
+## Increase upload limit to 16G
+RUN sed -ie "s/upload_max_filesize=513M/upload_max_filesize=16G/g" /var/www/owncloud/.user.ini && \
+    sed -ie "s/post_max_size=513M/post_max_size=16G\\nmax_input_time=21600\\nmax_execution_time=21600\\nrequest_terminate_timeout=21600/g" /var/www/owncloud/.user.ini
+
 ADD configs/cron.conf /etc/oc-cron.conf
 RUN crontab /etc/oc-cron.conf
 
