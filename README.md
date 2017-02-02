@@ -42,7 +42,11 @@ For running in production, you need to provide a TLS key and certificate. The
 Makefile defaults to `/etc/ssl/private/ssl-cert-snakeoil.key` and
 `/etc/ssl/certs/ssl-cert-snakeoil.pem`. Make sure those files exist or extend
 the Makefile (you can include this Makefile and overwrite some variables in
-your own Makefile). To generate self signed once you can run the following command:
+your own Makefile).
+You might also want to change variables like
+`docker_owncloud_permanent_storage` to define where the persistent data will be
+stored.
+To generate self signed once you can run the following command:
 
 ```Shell
 make-ssl-cert generate-default-snakeoil
