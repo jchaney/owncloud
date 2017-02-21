@@ -64,6 +64,8 @@ In the initial ownCloud setup, you need to supply the database user, password, d
 make owncloud-mariadb-get-pw
 ```
 
+Note that this command also shows you the MariaDB root password which you need to write down because you will not be able to access it later (after you run `make owncloud-production` again to update the containers, the passwords will be different and not match the once which are actually used).
+
 That should be it :smile:
 
 ## Update your container and ownCloud
