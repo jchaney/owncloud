@@ -109,9 +109,7 @@ owncloud-mariadb:
 
 owncloud-mariadb-get-pw:
 	docker exec owncloud-mariadb \
-		sh -c '(env | egrep "^MYSQL_USER="; \
-				env | egrep "^MYSQL_(DATABASE|PASSWORD)="; \
-			) | sed "s/=/: /"; \
+		sh -c 'env | egrep "^MYSQL_" | sed "s/=/: /"; \
 			echo "Database host: db"'
 
 owncloud-mariadb-cli:
