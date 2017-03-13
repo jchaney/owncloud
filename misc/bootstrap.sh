@@ -54,7 +54,7 @@ EOF
 if ! occ  2>/dev/null | grep --quiet 'ownCloud is not installed'
 then
     occ app:disable updater
-    occ upgrade
+    occ upgrade --no-app-disable
 fi
 
 oc-install-3party-apps /owncloud/3party_apps.conf /var/www/owncloud/apps_persistent
