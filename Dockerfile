@@ -29,7 +29,7 @@ RUN DEBIAN_FRONTEND=noninteractive ;\
         wget
 
 ## Check latest version: https://github.com/owncloud/core/wiki/Maintenance-and-Release-Schedule
-ENV OWNCLOUD_VERSION="9.0.8" \
+ENV OWNCLOUD_VERSION="9.0.9" \
     OWNCLOUD_IN_ROOTPATH="0" \
     OWNCLOUD_SERVERNAME="localhost"
 
