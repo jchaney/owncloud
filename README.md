@@ -5,9 +5,11 @@
 [![ImageLayers Size](https://img.shields.io/imagelayers/image-size/jchaney/owncloud/latest.svg)][this.project_docker_hub_url]
 [![ImageLayers Layers](https://img.shields.io/imagelayers/layers/jchaney/owncloud/latest.svg)][this.project_docker_hub_url]
 
-Docker image for [ownCloud][].
+**This repository is *deprecated*. Please use something else which is still maintained.**
 
-**Maintainer wanted. Refer to https://github.com/jchaney/owncloud/issues/62**
+~~Maintainer wanted. Refer to https://github.com/jchaney/owncloud/issues/62~~
+
+Docker image for [ownCloud][].
 
 The build instructions are tracked on [GitHub][this.project_github_url].
 [Automated builds][] are hosted on [Docker Hub][this.project_docker_hub_url].
